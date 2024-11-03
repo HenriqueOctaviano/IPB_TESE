@@ -59,7 +59,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="vW3I8cVeebGqOr11pYuI-13" value="RECEBE O DADO DE CADA SENDER&lt;br&gt;&lt;br&gt;CONFIGURA UMA STRING INDIVIDUAL&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ENVIO PARA O GATEWAY VIA LORA&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
-          <mxGeometry x="530" y="190" width="120" height="220" as="geometry" />
+          <mxGeometry x="470" y="190" width="120" height="220" as="geometry" />
         </mxCell>
         <mxCell id="vW3I8cVeebGqOr11pYuI-16" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="vW3I8cVeebGqOr11pYuI-17" source="vW3I8cVeebGqOr11pYuI-10">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -69,6 +69,42 @@
         </mxCell>
         <mxCell id="vW3I8cVeebGqOr11pYuI-17" value="RECEBE CADA DADO ENVIADO PELO RECEIVER&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;QUANTO RECEBER CADA DADO&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;JUNTA NUMA STRING ÚNICA&lt;/span&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ENVIA PARA O BROKER MQTT VIA WIFI&lt;/div&gt;&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
           <mxGeometry x="20" y="330" width="120" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-18" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vW3I8cVeebGqOr11pYuI-10" target="vW3I8cVeebGqOr11pYuI-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="330" as="sourcePoint" />
+            <mxPoint x="430" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-19" value="NODE-RED" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="200" y="550" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-20" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vW3I8cVeebGqOr11pYuI-19" target="vW3I8cVeebGqOr11pYuI-23">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="330" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-21" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vW3I8cVeebGqOr11pYuI-19" target="vW3I8cVeebGqOr11pYuI-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="330" as="sourcePoint" />
+            <mxPoint x="560" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-22" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vW3I8cVeebGqOr11pYuI-19" target="vW3I8cVeebGqOr11pYuI-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="453" y="500" as="sourcePoint" />
+            <mxPoint x="440" y="670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-23" value="INFLUX" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="380" y="420" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-24" value="GRAFANA" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="380" y="530" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vW3I8cVeebGqOr11pYuI-25" value="ALERTAS" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="380" y="640" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
