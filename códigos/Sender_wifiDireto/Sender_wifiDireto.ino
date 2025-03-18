@@ -6,13 +6,15 @@
 #define DHT11_PIN  32 // GPIO32 para o sensor DHT11
 
 // Credenciais WiFi
-const char* WIFI_AP_SSID = "Vodafone-71C302";
-const char* WIFI_AP_PASS = "JCb8TXb85x";
+const char* WIFI_AP_SSID = "agents";
+const char* WIFI_AP_PASS = "QgC9O8VucAByqvVu5Rruv1zdpqM66cd23KG4ElV7vZiJND580bzYvaHqz5k07G2";
 
-#define MQTT_SERVER "broker.mqtt-dashboard.com"
+// Configuração do MQTT
+#define MQTT_SERVER "broker.emqx.io"
 #define MQTT_PORT 1883
 #define MQTT_TOPIC "IPB/Tese/a61450/data"
 
+// Inicialização do DHT11 e MQTT
 DHT dht(DHT11_PIN, DHT11);
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -27,7 +29,7 @@ void connect_wifi() {
         delay(500);
         Serial.print(".");
         attempt++;
-        if (attempt > 30) {
+        if (attempt > 30) {  // Se demorar mais de 15s, reinicia o ESP32
             Serial.println("\nFalha na conexão WiFi. Reiniciando...");
             ESP.restart();
         }
@@ -39,8 +41,15 @@ void connect_wifi() {
 void reconnectMQTT() {
     while (!client.connected()) {
         Serial.print("Tentando conectar ao MQTT...");
+
+        // Se o WiFi caiu, reconectar
+        if (WiFi.status() != WL_CONNECTED) {
+            Serial.println("WiFi desconectado, tentando reconectar...");
+            connect_wifi();
+        }
+
         if (client.connect("ESP32Client")) {
-            Serial.println("Conectado ao broker MQTT");
+            Serial.println("Conectado ao broker MQTT!");
             if (!pendingMessage.isEmpty()) {
                 client.publish(MQTT_TOPIC, pendingMessage.c_str());
                 Serial.println("Mensagem pendente publicada");
@@ -57,8 +66,8 @@ void sendMQTTData(float temperature, float humidity) {
     if (!client.connected()) {
         reconnectMQTT();
     }
-    
-    String payload = "{\"temperature\": " + String(temperature, 2) + ", \"humidity\": " + String(humidity, 2) + "}";
+
+    String payload = "M1, Temp: " + String(temperature, 2) + "°C, Hum: " + String(humidity, 2) + "%";
     Serial.print("Enviando MQTT: "); Serial.println(payload);
     
     if (client.publish(MQTT_TOPIC, payload.c_str())) {
@@ -73,14 +82,21 @@ void setup() {
     Serial.begin(115200);
     WiFi.mode(WIFI_STA);
     connect_wifi();
-    
-    client.setServer(MQTT_SERVER, MQTT_PORT);
     dht.begin();
+    client.setServer(MQTT_SERVER, MQTT_PORT);
 }
 
 void loop() {
     static uint32_t lastSendTime = 0;
-    if (millis() - lastSendTime > 300000) { // 5 minutos
+
+    // Mantém o MQTT ativo
+    if (!client.connected()) {
+        reconnectMQTT();
+    }
+    client.loop();
+
+    // Enviar dados a cada 30 segundos
+    if (millis() - lastSendTime > 30000) {
         float temperature = dht.readTemperature();
         float humidity = dht.readHumidity();
         
@@ -92,5 +108,4 @@ void loop() {
         sendMQTTData(temperature, humidity);
         lastSendTime = millis();
     }
-    client.loop();
 }
